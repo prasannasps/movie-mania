@@ -1,0 +1,19 @@
+<mat-drawer-container>
+    <mat-drawer style="width: 150px;" #drawer mode="side" opened>
+        <h4 style="margin: 20%; margin-bottom: 50px;">MovieMania</h4>
+
+        <div style="margin:20%" class="pointer" (click)="navigate(sidebar.url)" *ngFor="let sidebar of sidebars">
+            <div [ngStyle]="{ color: sidebar.selected ? '#2497E9' : 'black' }">
+                {{sidebar.display}}
+            </div>
+        </div>
+    </mat-drawer>
+
+    <router-outlet></router-outlet>
+
+</mat-drawer-container>
+
+<div [ngClass]="{'load-message': loading}">
+    <mat-spinner diameter="30"></mat-spinner>
+    <div class="message-text"> Loading.. Please wait.. </div>
+</div>
