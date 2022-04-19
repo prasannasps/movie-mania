@@ -10,4 +10,13 @@ export class AppService {
         return this.httpClient.get(`http://localhost:5000/mmania/movies-all`);
     }
 
+    public searchMovies(searchKey: string) {
+        return this.httpClient.get(`http://localhost:5000/mmania/movies-search`,
+            {
+                params: {
+                    search_key: searchKey
+                }
+            });
+    }
+
 }

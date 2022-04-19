@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const APP_ROUTES: Routes = [
 
-    { path: '', redirectTo: 'bewell', pathMatch: 'full' },
+    { path: '', redirectTo: 'mmania', pathMatch: 'full' },
     {
         path: 'mmania',
         children: [

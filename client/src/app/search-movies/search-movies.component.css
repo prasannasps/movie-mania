@@ -1,0 +1,28 @@
+.error {
+  color: red;
+  font-size: 13px;
+}
+
+button {
+  background-color: rgb(36, 151, 233) !important;
+  top: 10px;
+  height: 35px;
+}
+
+form {
+  margin-left: 25px;
+  margin-top: 25px;
+  margin-right: 25px;
+}
+
+::ng-deep.mat-form-field-ripple {
+  background-color: rgb(36, 151, 233) !important;
+}
+
+.mat-focused .placeholder {
+  color: rgb(36, 151, 233) !important;
+}
+
+table {
+  width: 100%;
+}
