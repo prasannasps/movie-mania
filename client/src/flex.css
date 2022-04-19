@@ -11,6 +11,10 @@
   align-items: flex-end;
 }
 
+.flx-gap-35 {
+  gap: 35px;
+}
+
 /* @for $i from 1 through 20 {
   .flx-#{$i * 5} {
     max-width: $i * 5%;

@@ -21,24 +21,24 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.routerEvent();
     this.sidebars = [{
-      url: '/mmania/movie-list',
+      url: '/mmania/movies-list',
       display: 'Movies',
       icon_class: 'home'
     },
     {
-      url: '/mmania/search',
-      display: 'Search',
+      url: '/mmania/sorted-movies',
+      display: 'Sorted Movies',
       icon_class: 'search'
     },
     {
-      url: '/mmania/favs',
-      display: 'Favorites',
+      url: '/mmania/genre-filter',
+      display: 'Genre Filter',
       icon_class: 'favorites'
     },
     {
-      url: '/mmania/profile',
-      display: 'Profile',
-      icon_class: 'profile'
+      url: '/mmania/search-movies',
+      display: 'Search Movies',
+      icon_class: 'search-movies'
     }]
 
     this.sharedSubscription = this.sharedService.sharedMessage.subscribe((data: any) => {

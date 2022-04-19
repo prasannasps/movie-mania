@@ -1,4 +1,11 @@
-<div class="app-title">Movies List</div>
+<div class="app-title">Sorted Movies</div>
+
+<div class="row flx-end-end flx-gap-35">
+    <div (click)="filterHandler(filter)" [ngClass]="{'bold': filter.selected === true}" class="pointer"
+        *ngFor="let filter of sortableFilters">
+        Sort By {{filter.value}}
+    </div>
+</div>
 
 
 <div class="mat-elevation-z8">

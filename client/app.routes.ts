@@ -10,18 +10,18 @@ export const APP_ROUTES: Routes = [
                 path: 'movies-list',
                 loadChildren: () => import('src/app/movies-list/movies-list.module').then((m) => m.MoviesListModule),
             },
-            // {
-            //     path: 'favs',
-            //     loadChildren: () => import('./favorites/favorites.module').then((m) => m.FavoritesModule),
-            // },
-            // {
-            //     path: 'home',
-            //     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-            // },
-            // {
-            //     path: 'profile',
-            //     loadChildren: () => import('./profile/profile.module').then((m) => m.ProfileModule),
-            // }
+            {
+                path: 'sorted-movies',
+                loadChildren: () => import('src/app/sorted-movies/sorted-movies.module').then((m) => m.SortedMoviesModule),
+            },
+            {
+                path: 'genre-filter',
+                loadChildren: () => import('src/app/genre-filter/genre-filter.module').then((m) => m.GenreFilterModule),
+            },
+            {
+                path: 'search-movies',
+                loadChildren: () => import('src/app/search-movies/search-movies.module').then((m) => m.SearchMoviesModule),
+            }
         ]
     }
 ]

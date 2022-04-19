@@ -29,7 +29,6 @@ export class MoviesListComponent implements OnInit, AfterViewInit {
 
   search() {
     this.appService.getMovies().subscribe((data: any) => {
-      console.log(data);
       if (data && data.List && data.List.length > 0) {
         this.dataSource = new MatTableDataSource<Movies>(data.List);
         this.dataSource.paginator = this.paginator;

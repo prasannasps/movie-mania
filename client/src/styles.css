@@ -17,6 +17,7 @@ mat-card {
   padding-left: 0;
   padding-bottom: 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  margin-bottom: 25px;
 }
 
 .pointer {
@@ -28,4 +29,8 @@ mat-drawer-container {
   top: 0;
   width: 100%;
   bottom: 0;
+}
+
+.bold {
+  font-weight: bold;
 }
