@@ -7,11 +7,11 @@ export class AppService {
     constructor(private httpClient: HttpClient) { }
 
     public getMovies() {
-        return this.httpClient.get(`http://localhost:5000/mmania/movies-all`);
+        return this.httpClient.get(`http://localhost:5000/api/movies-all`);
     }
 
     public searchMovies(searchKey: string) {
-        return this.httpClient.get(`http://localhost:5000/mmania/movies-search`,
+        return this.httpClient.get(`http://localhost:5000/api/movies-search`,
             {
                 params: {
                     search_key: searchKey
