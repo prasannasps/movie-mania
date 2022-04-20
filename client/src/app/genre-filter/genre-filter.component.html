@@ -1,5 +1,25 @@
 <div class="app-title">Genre Filter</div>
 
+<mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Selected Genres</mat-label>
+    <mat-chip-list #chipList aria-label="Genre selection">
+        <mat-chip *ngFor="let genre of selectedGenres" (removed)="remove(genre)">
+            {{genre}}
+            <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip>
+        <input placeholder="New Genre..." #genreInput [formControl]="genreCtrl" [matAutocomplete]="auto"
+            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let genre of filteredGenres | async" [value]="genre">
+            {{genre}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>
+
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">

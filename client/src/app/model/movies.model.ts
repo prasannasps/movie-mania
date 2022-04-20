@@ -4,4 +4,5 @@ export interface Movies {
     genre: string[];
     imdb_score: number;
     name: string;
+    created_at: Date;
 }

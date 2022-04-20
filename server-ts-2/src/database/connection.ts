@@ -1,5 +1,4 @@
-
-import { Pool, Client } from "pg";
+import { Client } from "pg";
 
 export class DatabaseConnection {
 
@@ -26,12 +25,12 @@ export class DatabaseConnection {
         await client.connect();
         const now = await client.query("SELECT NOW()");
         await client.end();
-
         return now;
     }
 
 
     //Connection Helper Method
+
     public async dbConnection(query: string, values?: any[]) {
 
         values ||= [];
