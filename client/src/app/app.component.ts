@@ -13,10 +13,12 @@ export class AppComponent {
 
   constructor(private router: Router, private appConstants: AppConstants) {
 
-    this.appConstants.accessToken = window.localStorage.getItem("accessToken") || '';
-    this.appConstants.loggedInUser = new User();
-    this.appConstants.loggedInUser.id = Number(window.localStorage.getItem("loggedInUserid"));
-    this.appConstants.loggedInUser.name = window.localStorage.getItem("loggedInUsername") || '';
+    if (window.localStorage.getItem("accessToken")) {
+      this.appConstants.accessToken = window.localStorage.getItem("accessToken") || '';
+      this.appConstants.loggedInUser.id = Number(window.localStorage.getItem("loggedInUserid"));
+      this.appConstants.loggedInUser.name = window.localStorage.getItem("loggedInUsername") || '';
+      this.appConstants.isAdmin = true;
+    }
 
     router.navigateByUrl('mmania/movies-list')
   }

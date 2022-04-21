@@ -1,5 +1,8 @@
 <div class="app-title">Movies List</div>
 
+<div *ngIf="appConstants?.loggedInUser?.id" class="flx-end-end" style="color: rgb(58, 60, 184);">
+    <span class="pointer" (click)="addNewMovie()">Add New Movie</span>
+</div>
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
@@ -32,6 +35,13 @@
         <ng-container matColumnDef="_99popularity">
             <th mat-header-cell *matHeaderCellDef> Popularity </th>
             <td mat-cell *matCellDef="let element"> {{element._99popularity}} </td>
+        </ng-container>
+
+        <!-- Edit Column -->
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element"> <span class="pointer" (click)="editMovie(element)"
+                    style="color: rgb(58, 60, 184);">Edit</span> </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

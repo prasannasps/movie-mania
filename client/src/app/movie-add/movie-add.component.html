@@ -1,0 +1,66 @@
+<div style="color: green;" class="box row" *ngIf="message && message.length > 0">{{message}}</div>
+
+<div class="app-title">Add/Edit Movies</div>
+
+<mat-error *ngIf="error">
+    Invalid Form
+</mat-error>
+<div *ngIf="movieId > 0">Movie Name: {{form && form.get('name')?.value}}</div>
+
+<form *ngIf="form" [formGroup]="form">
+
+    <div class="flx-row-stretch flx-gap-35">
+
+        <mat-form-field *ngIf="movieId == 0" style="flex: 1">
+            <input formControlName="name" ngDefaultControl matInput placeholder="Name">
+            <mat-error *ngIf="form.get('name')?.invalid">
+                Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="flex: 1">
+            <input formControlName="director" ngDefaultControl matInput placeholder="Director">
+            <mat-error *ngIf="form.get('director')?.invalid">
+                Director is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="flex: 1">
+            <input type="number" min="0" max="100" step=".01" formControlName="_99popularity" ngDefaultControl matInput
+                placeholder="Popularity">
+            <mat-error *ngIf="form.get('_99popularity')?.invalid">
+                Popularity is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="flex: 1">
+            <input type="number" min="0" max="10" step=".01" formControlName="imdb_score" ngDefaultControl matInput
+                placeholder="IMDB Score">
+            <mat-error *ngIf="form.get('imdb_score')?.invalid">
+                IMDB Score is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="flx-row-start">
+        <mat-form-field style="flex: 0.25" appearance="fill">
+            <mat-label>Genres</mat-label>
+            <mat-select formControlName="genre" multiple>
+                <mat-select-trigger>
+                    {{form.get('genre')?.value ? form.get('genre')?.value[0] : ''}}
+                    <span *ngIf="form.get('genre')?.value?.length > 1" class="example-additional-selection">
+                        (+{{form.get('genre')?.value.length - 1}} {{form.get('genre')?.value?.length === 2 ? 'other' :
+                        'others'}})
+                    </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let genre of genreList" [value]="genre.name">{{genre.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+</form>
+
+<div class="flx-end-end flx-gap-20">
+    <button (click)="submit()" mat-raised-button color="primary">Sumit</button>
+    <button (click)="reset()" mat-raised-button>Reset</button>
+</div>

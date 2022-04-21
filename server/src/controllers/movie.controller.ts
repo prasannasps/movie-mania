@@ -21,6 +21,24 @@ export class MovieController extends DatabaseConnection {
         }
     }
 
+    public async fetchMovieOnId(req: Request, res: Response) {
+        try {
+
+            const id: number = Number(req.query.id) || 0;
+            const query: string = `SELECT * from s_movie_mania.movies where id = ${id}`;
+            const result: any = await super.dbConnection(query);
+            if (!result || !result.rows) {
+                return res.status(200).json({ Error: result });
+            }
+            const movies: Movies[] = result.rows || [];
+            res.status(200).json({ Data: movies[0] });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+        }
+    }
+
 
     public async searchMovies(req: Request, res: Response) {
 
@@ -57,6 +75,50 @@ export class MovieController extends DatabaseConnection {
             }
             const filteredMovies: Movies[] = result.rows || [];
             res.status(200).json({ List: filteredMovies || [] });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+        }
+
+    }
+
+
+    public async insertMovie(req: Request, res: Response) {
+
+        try {
+
+            const movie: Movies = req.body.movie;
+            const query: string = `INSERT INTO s_movie_mania.movies(_99popularity, director, imdb_score, name, genre, created_by) VALUES ( ${movie._99popularity}, '${movie.director}', ${movie.imdb_score}, '${movie.name}',array[${movie.genre.map((genre: string) => `'${genre.trim()}'`)}], ${movie.created_by || 0}) returning *`;
+            const result: any = await super.dbConnection(query);
+
+            if (!result || !result.rows) {
+                return res.status(200).json({ Error: result });
+            }
+            const filteredMovies: Movies[] = result.rows || [];
+            res.status(200).json({ Data: filteredMovies[0] || [] });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+        }
+
+    }
+
+
+    public async updateMovie(req: Request, res: Response) {
+
+        try {
+
+            const movie: Movies = req.body.movie;
+            const query: string = `Update s_movie_mania.movies set id = ${movie.id}, name = '${movie.name}', _99popularity = ${movie._99popularity}, director = '${movie.director}', imdb_score = ${movie.imdb_score}, genre = array[${movie.genre.map((genre: string) => `'${genre.trim()}'`)}] where id = ${movie.id} returning *`;
+            const result: any = await super.dbConnection(query);
+
+            if (!result || !result.rows) {
+                return res.status(200).json({ Error: result });
+            }
+            const filteredMovies: Movies[] = result.rows || [];
+            res.status(200).json({ Data: filteredMovies[0] || [] });
 
         } catch (error) {
             console.log(error);

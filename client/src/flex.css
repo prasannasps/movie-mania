@@ -11,6 +11,19 @@
   align-items: flex-end;
 }
 
+.flx-row-stretch {
+  display: flex;
+  flex-direction: row;
+  place-content: center flex-end;
+  align-items: stretch;
+}
+
+.flx-row-start {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
 .flx-gap-35 {
   gap: 35px;
 }

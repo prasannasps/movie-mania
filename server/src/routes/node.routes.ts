@@ -61,12 +61,24 @@ export class NodeRoutes {
             movieController.fetchAllMovies(req, res);
         });
 
+        app.get(baseUrl + '/movie', (req: Request, res: Response) => {
+            movieController.fetchMovieOnId(req, res);
+        });
+
         app.get(baseUrl + '/movies-search', (req: Request, res: Response) => {
             movieController.searchMovies(req, res);
         });
 
         app.post(baseUrl + '/movies-genre-search', (req: Request, res: Response) => {
             movieController.filterMoviesOnGenre(req, res);
+        });
+
+        app.post(baseUrl + '/movie-insert', (req: Request, res: Response) => {
+            movieController.insertMovie(req, res);
+        });
+
+        app.post(baseUrl + '/movie-update', (req: Request, res: Response) => {
+            movieController.updateMovie(req, res);
         });
 
     }

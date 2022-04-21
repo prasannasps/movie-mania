@@ -3,7 +3,7 @@ import { LoginComponent } from './src/app/login/login.component';
 
 export const APP_ROUTES: Routes = [
 
-    { path: '', redirectTo: 'mmania', pathMatch: 'full' },
+    { path: '', redirectTo: 'mmania/movies-list', pathMatch: 'full' },
     {
         path: 'mmania',
         children: [
@@ -22,6 +22,18 @@ export const APP_ROUTES: Routes = [
             {
                 path: 'search-movies',
                 loadChildren: () => import('src/app/search-movies/search-movies.module').then((m) => m.SearchMoviesModule),
+            },
+            {
+                path: 'genre-list',
+                loadChildren: () => import('src/app/genre-list/genre-list.module').then((m) => m.GenreListModule),
+            },
+            {
+                path: 'add-genre',
+                loadChildren: () => import('src/app/genre-add/genre-add.module').then((m) => m.GenreAddModule),
+            },
+            {
+                path: 'add-movie/:id',
+                loadChildren: () => import('src/app/movie-add/movie-add.module').then((m) => m.MovieAddModule),
             }
         ]
     },

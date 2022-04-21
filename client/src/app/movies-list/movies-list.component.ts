@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Movies } from '../model/movies.model';
 import { AppService } from './../app.service';
+import { Router } from '@angular/router';
+import { AppConstants } from './../app.constants';
 
 @Component({
   selector: 'app-movies-list',
@@ -17,7 +19,11 @@ export class MoviesListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router, public appConstants: AppConstants) {
+    if (appConstants.loggedInUser.id) {
+      this.displayedColumns.push('edit');
+    }
+  }
 
   ngOnInit(): void {
     this.search();
@@ -34,6 +40,14 @@ export class MoviesListComponent implements OnInit, AfterViewInit {
         this.dataSource.paginator = this.paginator;
       }
     })
+  }
+
+  editMovie(movie: Movies) {
+    this.router.navigateByUrl('/mmania/add-movie/' + movie.id || '0');
+  }
+
+  addNewMovie() {
+    this.router.navigateByUrl('/mmania/add-movie/0');
   }
 
 }

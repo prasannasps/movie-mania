@@ -25,22 +25,22 @@ export class SidebarComponent implements OnInit {
     this.sidebars = [{
       url: '/mmania/movies-list',
       display: 'Movies',
-      icon_class: 'home'
     },
     {
       url: '/mmania/sorted-movies',
       display: 'Sorted Movies',
-      icon_class: 'search'
     },
     {
       url: '/mmania/genre-filter',
       display: 'Genre Filter',
-      icon_class: 'favorites'
     },
     {
       url: '/mmania/search-movies',
       display: 'Search Movies',
-      icon_class: 'search-movies'
+    },
+    {
+      url: '/mmania/genre-list',
+      display: 'Genre List',
     }]
 
     this.sharedSubscription = this.sharedService.sharedMessage.subscribe((data: any) => {
@@ -81,7 +81,9 @@ export class SidebarComponent implements OnInit {
     this.appConstant.accessToken = '';
     this.appConstant.loggedInUser = new User();
 
-    this.router.navigateByUrl('/mmania/movies-list');
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/mmania/sorted-movies']);
+    });
 
   }
 
