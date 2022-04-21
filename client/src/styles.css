@@ -34,3 +34,7 @@ mat-drawer-container {
 .bold {
   font-weight: bold;
 }
+
+.mat-icon {
+  vertical-align: middle;
+}

@@ -4,6 +4,7 @@ import { MovieController } from '../controllers/movie.controller';
 import { UserController } from '../controllers/user.controller';
 import * as jwt from 'jsonwebtoken';
 
+//To DO : Incorporate Authentication
 const authenticateToken = (req: any, res: Response, next: any) => {
     const authHeader = req.headers['authorization'];
     console.log(authHeader);
@@ -20,17 +21,6 @@ const authenticateToken = (req: any, res: Response, next: any) => {
 
 export class NodeRoutes {
 
-    users = [
-        {
-            id: 1,
-            name: 'Admin'
-        },
-        {
-            id: 2,
-            name: 'Jim'
-        }
-    ]
-
     public initNodeRoutes(app: Application, baseUrl: string) {
         this.userRoutes(app, baseUrl);
         this.movieRoutes(app, baseUrl);
@@ -45,11 +35,11 @@ export class NodeRoutes {
             userCtrl.getUser(req, res);
         });
 
-        app.get(baseUrl + '/posts', authenticateToken, (req: any, res: Response) => {
-            // userCtrl.getUser(req, res);
-            console.log(req.user);
-            res.json(this.users.find(user => user.id === req['user'].userId));
-        });
+        // app.get(baseUrl + '/posts', authenticateToken, (req: any, res: Response) => {
+        //     // userCtrl.getUser(req, res);
+        //     console.log(req.user);
+        //     res.json(this.users.find(user => user.id === req['user'].userId));
+        // });
 
     }
 

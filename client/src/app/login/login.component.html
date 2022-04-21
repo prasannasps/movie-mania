@@ -1,8 +1,8 @@
 <form [formGroup]="form">
     <fieldset>
-        <legend>Login</legend>
+        <legend><strong>Login</strong></legend>
         <div class="form-field">
-            <label>Email:</label>
+            <label style="padding-right: 29px;">Email:</label>
             <input name="email" formControlName="email">
         </div>
         <div class="form-field">
@@ -12,6 +12,6 @@
         <div *ngIf="!validForm" style="color: red;"><b>Invalid credentials</b></div>
     </fieldset>
     <div class="form-buttons">
-        <button class="button button-primary" (click)="login()">Login</button>
+        <button mat-raised-button class="button button-primary" (click)="login()">Login</button>
     </div>
 </form>

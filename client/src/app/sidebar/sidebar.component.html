@@ -1,5 +1,5 @@
 <mat-drawer-container>
-    <mat-drawer style="width: 150px;" #drawer mode="side" opened>
+    <mat-drawer style="width: 160px;" #drawer mode="side" opened>
         <h4 style="margin: 15%; margin-bottom: 50px;">MovieMania</h4>
 
         <div style="margin:15%" class="pointer" (click)="navigate(sidebar.url)" *ngFor="let sidebar of sidebars">
@@ -7,15 +7,15 @@
                 {{sidebar.display}}
             </div>
         </div>
-        <div *ngIf="appConstant.loggedInUser && appConstant.loggedInUser.id" style="margin:15%" class="pointer"
-            (click)="logout()">
+        <div *ngIf="appConstant.loggedInUser && appConstant.loggedInUser.id" style="margin:15%; margin-top:100%"
+            class=" pointer" (click)="logout()">
             Logout<span>
                 <mat-icon aria-hidden="false">logout</mat-icon>
             </span>
-            <div><b>{{appConstant.loggedInUser.name}}</b></div>
+            <div><strong>{{appConstant.loggedInUser.name}}</strong></div>
         </div>
-        <div *ngIf="!appConstant.loggedInUser || !appConstant.loggedInUser.id" style="margin:15%" class="pointer"
-            (click)="navigate('/login')">
+        <div *ngIf="!appConstant.loggedInUser || !appConstant.loggedInUser.id" style="margin:15%; margin-top:100%"
+            class="pointer" (click)="navigate('/login')">
             Login<span>
                 <mat-icon aria-hidden="false">login</mat-icon>
             </span>
