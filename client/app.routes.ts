@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './src/app/login/login.component';
 
 export const APP_ROUTES: Routes = [
 
@@ -23,5 +24,9 @@ export const APP_ROUTES: Routes = [
                 loadChildren: () => import('src/app/search-movies/search-movies.module').then((m) => m.SearchMoviesModule),
             }
         ]
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     }
 ]

@@ -1,0 +1,16 @@
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+# {
+#     "emailid":"admin@gmail.com",
+#     "password":"admin"
+# }
+{
+    "emailid":"jim@gmail.com",
+    "password":"jim"
+}
+
+###
+
+GET http://localhost:5000/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1MDUyMDE1MX0.HF4fWS9Kpf3siYG1mBQPzoxEO1WmviBntQgvJjx-nF4

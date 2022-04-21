@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { DatabaseConnection } from "../database/connection";
+import { Movies } from './../model/movies.model';
 
 export class MovieController extends DatabaseConnection {
 
@@ -11,7 +12,7 @@ export class MovieController extends DatabaseConnection {
             if (!result || !result.rows) {
                 return res.status(200).json({ Error: result });
             }
-            const movies = result.rows || [];
+            const movies: Movies[] = result.rows || [];
             res.status(200).json({ List: movies });
 
         } catch (error) {
@@ -32,8 +33,7 @@ export class MovieController extends DatabaseConnection {
             if (!result || !result.rows) {
                 return res.status(200).json({ Error: result });
             }
-            const filteredMovies = result.rows || [];
-            console.log(filteredMovies);
+            const filteredMovies: Movies[] = result.rows || [];
             res.status(200).json({ List: filteredMovies || [] });
 
         } catch (error) {
@@ -55,8 +55,7 @@ export class MovieController extends DatabaseConnection {
             if (!result || !result.rows) {
                 return res.status(200).json({ Error: result });
             }
-            const filteredMovies = result.rows || [];
-            console.log(filteredMovies);
+            const filteredMovies: Movies[] = result.rows || [];
             res.status(200).json({ List: filteredMovies || [] });
 
         } catch (error) {

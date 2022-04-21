@@ -3,9 +3,11 @@ import { createServer, Server } from 'http';
 import colors from 'colors';
 import { NodeRoutes } from './routes/node.routes';
 import { DatabaseConnection } from './database/connection';
-import cookieParser from 'cookie-parser';
-import * as jwt from 'jsonwebtoken';
-import * as fs from "fs";
+import * as dotenv from 'dotenv';
+import { UserController } from './controllers/user.controller';
+import { Users } from './constants/server.constants';
+
+dotenv.config({ path: './src/.env' });
 
 export class AppServer {
 
@@ -61,8 +63,16 @@ export class AppServer {
 
         const nodeRoutes: NodeRoutes = new NodeRoutes();
         nodeRoutes.initNodeRoutes(this.app, this.API_BASE_URL);
-
+        this.setUsers();
         this.listen();
+    }
+
+    private async setUsers() {
+        const userCtrl: UserController = new UserController();
+        const result = await userCtrl.getAllUsers();
+        if (result && result.List && result.List.length > 0) {
+            Users.push(...result.List);
+        }
     }
 
 

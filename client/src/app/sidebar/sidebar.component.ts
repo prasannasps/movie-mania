@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { SharedService } from 'shared.service';
 import { SidebarModel } from '../model/sidebar.model';
 import { filter } from 'rxjs/operators';
+import { AppConstants } from './../app.constants';
+import { User } from './../model/user.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +18,7 @@ export class SidebarComponent implements OnInit {
   sharedSubscription: Subscription = new Subscription;
   loading: boolean = false;
 
-  constructor(private router: Router, private sharedService: SharedService) { }
+  constructor(private router: Router, private sharedService: SharedService, public appConstant: AppConstants) { }
 
   ngOnInit(): void {
     this.routerEvent();
@@ -68,6 +70,19 @@ export class SidebarComponent implements OnInit {
         sidebar.selected = true;
       }
     })
+  }
+
+  public logout() {
+
+    window.localStorage.removeItem("accessToken");
+    window.localStorage.removeItem("loggedInUsername");
+    window.localStorage.removeItem("loggedInUserid");
+
+    this.appConstant.accessToken = '';
+    this.appConstant.loggedInUser = new User();
+
+    this.router.navigateByUrl('/mmania/movies-list');
+
   }
 
   ngOnDestroy() {

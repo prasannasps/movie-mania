@@ -9,6 +9,7 @@
             <label>Password:</label>
             <input name="password" formControlName="password" type="password">
         </div>
+        <div *ngIf="!validForm" style="color: red;"><b>Invalid credentials</b></div>
     </fieldset>
     <div class="form-buttons">
         <button class="button button-primary" (click)="login()">Login</button>

@@ -2,8 +2,35 @@ import { Application, Request, Response } from 'express';
 import { GenreController } from '../controllers/genre.controller';
 import { MovieController } from '../controllers/movie.controller';
 import { UserController } from '../controllers/user.controller';
+import * as jwt from 'jsonwebtoken';
+
+const authenticateToken = (req: any, res: Response, next: any) => {
+    const authHeader = req.headers['authorization'];
+    console.log(authHeader);
+    const token = authHeader && authHeader.split(' ')[1];
+    if (token === null) res.sendStatus(401);
+
+    jwt.verify(token as string, process.env.ACCESS_TOKEN_SECRET as string, (err, user) => {
+        if (err) return res.sendStatus(403);
+        console.log(user);
+        req.user = user;
+        next();
+    })
+}
 
 export class NodeRoutes {
+
+    users = [
+        {
+            id: 1,
+            name: 'Admin'
+        },
+        {
+            id: 2,
+            name: 'Jim'
+        }
+    ]
+
     public initNodeRoutes(app: Application, baseUrl: string) {
         this.userRoutes(app, baseUrl);
         this.movieRoutes(app, baseUrl);
@@ -14,8 +41,14 @@ export class NodeRoutes {
     private userRoutes(app: Application, baseUrl: string) {
 
         const userCtrl: UserController = new UserController();
-        app.post(baseUrl + '/movies-genre-search', (req: Request, res: Response) => {
+        app.post(baseUrl + '/login', (req: Request, res: Response) => {
             userCtrl.getUser(req, res);
+        });
+
+        app.get(baseUrl + '/posts', authenticateToken, (req: any, res: Response) => {
+            // userCtrl.getUser(req, res);
+            console.log(req.user);
+            res.json(this.users.find(user => user.id === req['user'].userId));
         });
 
     }
