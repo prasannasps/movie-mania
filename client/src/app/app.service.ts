@@ -5,14 +5,21 @@ import { Movies } from './model/movies.model';
 @Injectable({ providedIn: 'root' })
 export class AppService {
 
-    constructor(private httpClient: HttpClient) { }
+    localUrl: string = 'http://localhost:3000/';
+    remoteUrl: string = 'https://movie-mania-12.herokuapp.com/';
+
+    currentUrl: string;
+
+    constructor(private httpClient: HttpClient) {
+        this.currentUrl = this.remoteUrl;
+    }
 
     public getMovies() {
-        return this.httpClient.get(`http://localhost:5000/api/movies-all`);
+        return this.httpClient.get(this.currentUrl + `api/movies-all`);
     }
 
     public getMovie(id: number) {
-        return this.httpClient.get(`http://localhost:5000/api/movie`,
+        return this.httpClient.get(this.currentUrl + `api/movie`,
             {
                 params: {
                     id: id
@@ -21,7 +28,7 @@ export class AppService {
     }
 
     public searchMovies(searchKey: string) {
-        return this.httpClient.get(`http://localhost:5000/api/movies-search`,
+        return this.httpClient.get(this.currentUrl + `api/movies-search`,
             {
                 params: {
                     search_key: searchKey
@@ -30,19 +37,19 @@ export class AppService {
     }
 
     public searchMoviesOnGenre(genres: string[]) {
-        return this.httpClient.post(`http://localhost:5000/api/movies-genre-search`, { genres: genres });
+        return this.httpClient.post(this.currentUrl + `api/movies-genre-search`, { genres: genres });
     }
 
     public getGenres() {
-        return this.httpClient.get(`http://localhost:5000/api/genres-all`);
+        return this.httpClient.get(this.currentUrl + `api/genres-all`);
     }
 
     public insertMovie(movie: Movies) {
-        return this.httpClient.post(`http://localhost:5000/api/movie-insert`, { movie: movie });
+        return this.httpClient.post(this.currentUrl + `api/movie-insert`, { movie: movie });
     }
 
     public updatetMovie(movie: Movies) {
-        return this.httpClient.post(`http://localhost:5000/api/movie-update`, { movie: movie });
+        return this.httpClient.post(this.currentUrl + `api/movie-update`, { movie: movie });
     }
 
 }

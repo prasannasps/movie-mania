@@ -11,7 +11,7 @@ dotenv.config({ path: './src/.env' });
 
 export class AppServer {
 
-    private readonly PORT: number = 5000;
+    private readonly PORT: number = Number(process.env.PORT);
     private readonly API_BASE_URL: string = '/api';
 
     private server: Server;
@@ -78,7 +78,7 @@ export class AppServer {
 
     private listen(): void {
 
-        this.server.listen(this.PORT, () => {
+        this.server.listen(this.PORT || 3000, () => {
             console.log(colors.green(`MovieMania - SVR: Running server on port ${this.PORT}`));
             console.log(colors.green(`MovieMania - SVR: Base URL - ${this.API_BASE_URL}`));
         });
