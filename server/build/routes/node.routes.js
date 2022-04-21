@@ -28,6 +28,7 @@ var genre_controller_1 = require("../controllers/genre.controller");
 var movie_controller_1 = require("../controllers/movie.controller");
 var user_controller_1 = require("../controllers/user.controller");
 var jwt = __importStar(require("jsonwebtoken"));
+//To DO : Incorporate Authentication
 var authenticateToken = function (req, res, next) {
     var authHeader = req.headers['authorization'];
     console.log(authHeader);
@@ -44,16 +45,6 @@ var authenticateToken = function (req, res, next) {
 };
 var NodeRoutes = /** @class */ (function () {
     function NodeRoutes() {
-        this.users = [
-            {
-                id: 1,
-                name: 'Admin'
-            },
-            {
-                id: 2,
-                name: 'Jim'
-            }
-        ];
     }
     NodeRoutes.prototype.initNodeRoutes = function (app, baseUrl) {
         this.userRoutes(app, baseUrl);
@@ -61,16 +52,15 @@ var NodeRoutes = /** @class */ (function () {
         this.genreRoutes(app, baseUrl);
     };
     NodeRoutes.prototype.userRoutes = function (app, baseUrl) {
-        var _this = this;
         var userCtrl = new user_controller_1.UserController();
         app.post(baseUrl + '/login', function (req, res) {
             userCtrl.getUser(req, res);
         });
-        app.get(baseUrl + '/posts', authenticateToken, function (req, res) {
-            // userCtrl.getUser(req, res);
-            console.log(req.user);
-            res.json(_this.users.find(function (user) { return user.id === req['user'].userId; }));
-        });
+        // app.get(baseUrl + '/posts', authenticateToken, (req: any, res: Response) => {
+        //     // userCtrl.getUser(req, res);
+        //     console.log(req.user);
+        //     res.json(this.users.find(user => user.id === req['user'].userId));
+        // });
     };
     NodeRoutes.prototype.movieRoutes = function (app, baseUrl) {
         var movieController = new movie_controller_1.MovieController();
