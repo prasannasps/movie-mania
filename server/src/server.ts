@@ -3,6 +3,9 @@ import { createServer, Server } from 'http';
 import colors from 'colors';
 import { NodeRoutes } from './routes/node.routes';
 import { DatabaseConnection } from './database/connection';
+import cookieParser from 'cookie-parser';
+import * as jwt from 'jsonwebtoken';
+import * as fs from "fs";
 
 export class AppServer {
 
