@@ -8,4 +8,5 @@ export class Movies {
     created_at: Date;
     created_by: number;
     modified_by: number;
+    is_deleted: boolean;
 }

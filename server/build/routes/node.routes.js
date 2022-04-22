@@ -82,6 +82,9 @@ var NodeRoutes = /** @class */ (function () {
         app.post(baseUrl + '/movie-update', function (req, res) {
             movieController.updateMovie(req, res);
         });
+        app.get(baseUrl + '/movie-delete', function (req, res) {
+            movieController.deleteMovie(req, res);
+        });
     };
     NodeRoutes.prototype.genreRoutes = function (app, baseUrl) {
         var genreControler = new genre_controller_1.GenreController();

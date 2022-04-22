@@ -52,4 +52,13 @@ export class AppService {
         return this.httpClient.post(this.currentUrl + `api/movie-update`, { movie: movie });
     }
 
+    public deleteMovie(id: number) {
+        return this.httpClient.get(this.currentUrl + `api/movie-delete`,
+            {
+                params: {
+                    id: id
+                }
+            });
+    }
+
 }

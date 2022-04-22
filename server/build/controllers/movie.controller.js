@@ -65,7 +65,7 @@ var MovieController = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        query = 'SELECT * from s_movie_mania.movies';
+                        query = 'SELECT * from s_movie_mania.movies where is_deleted = false';
                         return [4 /*yield*/, _super.prototype.dbConnection.call(this, query)];
                     case 1:
                         result = _a.sent();
@@ -93,7 +93,7 @@ var MovieController = /** @class */ (function (_super) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         id = Number(req.query.id) || 0;
-                        query = "SELECT * from s_movie_mania.movies where id = ".concat(id);
+                        query = "SELECT * from s_movie_mania.movies where id = ".concat(id, " and is_deleted = false");
                         return [4 /*yield*/, _super.prototype.dbConnection.call(this, query)];
                     case 1:
                         result = _a.sent();
@@ -122,7 +122,7 @@ var MovieController = /** @class */ (function (_super) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
                         searchKey = ((_a = req.query.search_key) === null || _a === void 0 ? void 0 : _a.toString()) || '';
-                        query = "select * from s_movie_mania.movies where lower(name) like '%".concat(searchKey, "%' or lower(director) like '%").concat(searchKey, "%'");
+                        query = "select * from s_movie_mania.movies where is_deleted = false and (lower(name) like '%".concat(searchKey, "%' or lower(director) like '%").concat(searchKey, "%')");
                         return [4 /*yield*/, _super.prototype.dbConnection.call(this, query)];
                     case 1:
                         result = _b.sent();
@@ -150,7 +150,7 @@ var MovieController = /** @class */ (function (_super) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
                         genres = req.body.genres || [];
-                        query = "select * from s_movie_mania.movies where ARRAY[".concat(genres.map(function (genre) { return "'".concat(genre.trim(), "'"); }), "]::character varying[] <@ genre");
+                        query = "select * from s_movie_mania.movies where is_deleted = false and ARRAY[".concat(genres.map(function (genre) { return "'".concat(genre.trim(), "'"); }), "]::character varying[] <@ genre");
                         return [4 /*yield*/, _super.prototype.dbConnection.call(this, query)];
                     case 1:
                         result = _a.sent();
@@ -220,6 +220,36 @@ var MovieController = /** @class */ (function (_super) {
                         error_6 = _a.sent();
                         console.log(error_6);
                         res.status(500).json({ message: error_6 });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    MovieController.prototype.deleteMovie = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var id, query, result, error_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        id = Number(req.query.id);
+                        if (!id || id <= 0) {
+                            return [2 /*return*/, res.status(200).json({ Error: 'Invalid Data' })];
+                        }
+                        query = "Update s_movie_mania.movies set is_deleted = true where id = ".concat(id);
+                        return [4 /*yield*/, _super.prototype.dbConnection.call(this, query)];
+                    case 1:
+                        result = _a.sent();
+                        if (!result || !result.rows) {
+                            return [2 /*return*/, res.status(200).json({ Error: result })];
+                        }
+                        this.fetchAllMovies(req, res);
+                        return [2 /*return*/];
+                    case 2:
+                        error_7 = _a.sent();
+                        console.log(error_7);
+                        res.status(500).json({ message: error_7 });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

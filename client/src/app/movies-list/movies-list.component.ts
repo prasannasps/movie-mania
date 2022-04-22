@@ -21,7 +21,7 @@ export class MoviesListComponent implements OnInit, AfterViewInit {
 
   constructor(private appService: AppService, private router: Router, public appConstants: AppConstants) {
     if (appConstants.loggedInUser.id) {
-      this.displayedColumns.push('edit');
+      this.displayedColumns.push(...['edit', 'delete']);
     }
   }
 
@@ -48,6 +48,15 @@ export class MoviesListComponent implements OnInit, AfterViewInit {
 
   addNewMovie() {
     this.router.navigateByUrl('/mmania/add-movie/0');
+  }
+
+  deleteMovie(movie: Movies) {
+    this.appService.deleteMovie(movie.id || 0).subscribe((data: any) => {
+      if (data && data.List && data.List.length > 0) {
+        this.dataSource = new MatTableDataSource<Movies>(data.List);
+        this.dataSource.paginator = this.paginator;
+      }
+    })
   }
 
 }

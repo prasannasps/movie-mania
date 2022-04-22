@@ -71,6 +71,10 @@ export class NodeRoutes {
             movieController.updateMovie(req, res);
         });
 
+        app.get(baseUrl + '/movie-delete', (req: Request, res: Response) => {
+            movieController.deleteMovie(req, res);
+        });
+
     }
 
     private genreRoutes(app: Application, baseUrl: string) {

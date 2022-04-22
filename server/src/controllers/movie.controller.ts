@@ -7,7 +7,7 @@ export class MovieController extends DatabaseConnection {
     public async fetchAllMovies(req: Request, res: Response) {
         try {
 
-            const query: string = 'SELECT * from s_movie_mania.movies';
+            const query: string = 'SELECT * from s_movie_mania.movies where is_deleted = false';
             const result: any = await super.dbConnection(query);
             if (!result || !result.rows) {
                 return res.status(200).json({ Error: result });
@@ -25,7 +25,7 @@ export class MovieController extends DatabaseConnection {
         try {
 
             const id: number = Number(req.query.id) || 0;
-            const query: string = `SELECT * from s_movie_mania.movies where id = ${id}`;
+            const query: string = `SELECT * from s_movie_mania.movies where id = ${id} and is_deleted = false`;
             const result: any = await super.dbConnection(query);
             if (!result || !result.rows) {
                 return res.status(200).json({ Error: result });
@@ -45,7 +45,7 @@ export class MovieController extends DatabaseConnection {
         try {
 
             const searchKey: string = req.query.search_key?.toString() || '';
-            const query: string = `select * from s_movie_mania.movies where lower(name) like '%${searchKey}%' or lower(director) like '%${searchKey}%'`;
+            const query: string = `select * from s_movie_mania.movies where is_deleted = false and (lower(name) like '%${searchKey}%' or lower(director) like '%${searchKey}%')`;
             const result: any = await super.dbConnection(query);
 
             if (!result || !result.rows) {
@@ -67,7 +67,7 @@ export class MovieController extends DatabaseConnection {
         try {
 
             const genres: string[] = req.body.genres || [];
-            const query: string = `select * from s_movie_mania.movies where ARRAY[${genres.map((genre: string) => `'${genre.trim()}'`)}]::character varying[] <@ genre`;
+            const query: string = `select * from s_movie_mania.movies where is_deleted = false and ARRAY[${genres.map((genre: string) => `'${genre.trim()}'`)}]::character varying[] <@ genre`;
             const result: any = await super.dbConnection(query);
 
             if (!result || !result.rows) {
@@ -119,6 +119,32 @@ export class MovieController extends DatabaseConnection {
             }
             const filteredMovies: Movies[] = result.rows || [];
             res.status(200).json({ Data: filteredMovies[0] || [] });
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: error });
+        }
+
+    }
+
+
+    public async deleteMovie(req: Request, res: Response) {
+
+        try {
+
+            const id: number = Number(req.query.id);
+            if (!id || id <= 0) {
+                return res.status(200).json({ Error: 'Invalid Data' });
+            }
+
+            const query: string = `Update s_movie_mania.movies set is_deleted = true where id = ${id}`;
+            const result: any = await super.dbConnection(query);
+
+            if (!result || !result.rows) {
+                return res.status(200).json({ Error: result });
+            }
+            this.fetchAllMovies(req, res);
+            return;
 
         } catch (error) {
             console.log(error);
